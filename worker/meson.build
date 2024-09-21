@@ -319,7 +319,7 @@ executable(
   dependencies: dependencies,
   sources: common_sources + ['src/main.cpp'],
   include_directories: include_directories('include'),
-  cpp_args: cpp_args + ['-DMS_EXECUTABLE'],
+  cpp_args: cpp_args + ['-DMS_EXECUTABLE', '-g'],
 )
 
 test_sources = [
