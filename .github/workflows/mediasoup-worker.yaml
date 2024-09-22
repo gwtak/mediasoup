@@ -135,3 +135,20 @@ jobs:
       - if: runner.os == 'Linux'
         name: invoke -r worker test-asan-thread
         run: invoke -r worker clean-all && invoke -r worker test-asan-thread
+
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0.0
+          release_name: Version 1.0.0
+
+      - name: Upload artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: worker/out/Release
+          asset_name: mediasoup-worker
