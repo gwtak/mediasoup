@@ -54,7 +54,7 @@ jobs:
         node:
           - 22
         build-type:
-          - Release
+          # - Release
           - Debug
 
     runs-on: ${{ matrix.build.os }}
@@ -136,19 +136,19 @@ jobs:
       #   name: invoke -r worker test-asan-thread
       #   run: invoke -r worker clean-all && invoke -r worker test-asan-thread
 
-      - name: Create release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v1.0.0
-          release_name: Version 1.0.0
+      # - name: Create release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: v1.0.0
+      #     release_name: Version 1.0.0
 
       - name: Upload artifact
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: https://github.com/gwtak/mediasoup/releases/tag/v1.0.0
           asset_path: worker/out/Release
           asset_name: mediasoup-worker
