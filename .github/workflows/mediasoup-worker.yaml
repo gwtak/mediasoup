@@ -140,7 +140,7 @@ jobs:
         run: ls -laR
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: mediasoup-worker
           path: worker/build/Debug/mediasoup-worker
