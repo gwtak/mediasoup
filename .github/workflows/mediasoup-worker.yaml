@@ -143,4 +143,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: mediasoup-worker
-          path: worker/build/Debug/mediasoup-worker
+          path: worker/out/Debug/mediasoup-worker
