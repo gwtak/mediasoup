@@ -152,3 +152,4 @@ jobs:
           upload_url: https://github.com/gwtak/mediasoup/releases/tag/v1.0.0
           asset_path: worker/out/Release
           asset_name: mediasoup-worker
+          asset_content_type: application/octet-stream
