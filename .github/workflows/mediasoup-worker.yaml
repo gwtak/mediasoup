@@ -136,23 +136,11 @@ jobs:
       #   name: invoke -r worker test-asan-thread
       #   run: invoke -r worker clean-all && invoke -r worker test-asan-thread
 
-      # - name: Create release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: v1.0.0
-      #     release_name: Version 1.0.0
-
       - name: List files
         run: ls -laR
 
-      - name: Upload artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v1
         with:
-          upload_url: https://github.com/gwtak/mediasoup/releases/tag/v1.0.0
-          asset_path: worker/out/Debug/mediasoup-worker
-          asset_name: mediasoup-worker
-          asset_content_type: application/octet-stream
+          name: mediasoup-worker
+          path: worker/build/Debug/mediasoup-worker
