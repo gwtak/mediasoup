@@ -144,6 +144,9 @@ jobs:
       #     tag_name: v1.0.0
       #     release_name: Version 1.0.0
 
+      - name: List files
+        run: ls -laR
+
       - name: Upload artifact
         uses: actions/upload-release-asset@v1
         env:
