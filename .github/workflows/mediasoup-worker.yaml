@@ -72,7 +72,7 @@ jobs:
 
       - run: npm run worker:build
       # - run: npm run test:worker
-        if: runner.os != 'Windows'
+      #   if: runner.os != 'Windows'
 
       - name: List files
         run: ls -laR
@@ -81,4 +81,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: mediasoup-worker
-          path: worker/out/Debug/mediasoup-worker
+          path: worker/out/Release/mediasoup-worker
