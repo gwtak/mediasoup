@@ -99,6 +99,7 @@
 #define _MS_TAG_ENABLED(tag) Settings::configuration.logTags.tag
 #define _MS_TAG_ENABLED_2(tag1, tag2) (Settings::configuration.logTags.tag1 || Settings::configuration.logTags.tag2)
 
+#define MS_LOG_DEV_LEVEL 3
 #if !defined(MS_LOG_DEV_LEVEL)
 	#define MS_LOG_DEV_LEVEL 0
 #elif MS_LOG_DEV_LEVEL < 0 || MS_LOG_DEV_LEVEL > 3
@@ -142,6 +143,7 @@ public:
 
 #define _MS_LOG_SEPARATOR_CHAR_STD "\n"
 
+#define MS_LOG_FILE_LINE
 #ifdef MS_LOG_FILE_LINE
 	#define _MS_LOG_STR "%s:%d | %s::%s()"
 	#define _MS_LOG_STR_DESC _MS_LOG_STR " | "
@@ -426,6 +428,7 @@ public:
 		MS_ABORT("failed assertion `%s': " desc, #condition, ##__VA_ARGS__); \
 	}
 
+#define MS_LOG_STD
 #ifdef MS_LOG_STD
 	#undef MS_TRACE
 	#define MS_TRACE MS_TRACE_STD
