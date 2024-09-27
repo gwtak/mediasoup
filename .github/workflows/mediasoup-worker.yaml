@@ -84,7 +84,10 @@ jobs:
         run: ls -laR
 
       - name: Compress Work Directory
-        run: mkdir tmp && cp !(tmp) tmp -fr && tar -czvf workDir.tar.gz tmp
+        run: |
+          mkdir tmp
+          find. -maxdepth 1! -name 'tmp' -print0 | xargs -0 cp -r -t tmp
+          tar -czvf workDir.tar.gz tmp
 
       - name: Upload mediasoup-worker
         uses: actions/upload-artifact@v3
