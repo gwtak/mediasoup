@@ -15,46 +15,16 @@ jobs:
       fail-fast: false
       matrix:
         build:
-          # - os: ubuntu-20.04
-          #   cc: gcc
-          #   cxx: g++
-          #   # Workaround for this issue in Ubunt 20.04:
-          #   # https://github.com/versatica/mediasoup/actions/runs/9992113733/job/27616379442?pr=1427
-          #   workaround-ubuntu-20-04: true
-          # - os: ubuntu-20.04
-          #   cc: clang
-          #   cxx: clang++
-          #   workaround-ubuntu-20-04: true
           - os: ubuntu-22.04
             cc: gcc
             cxx: g++
-          # - os: ubuntu-22.04
-          #   cc: clang
-          #   cxx: clang++
-          # - os: ubuntu-24.04
-          #   cc: gcc
-          #   cxx: g++
-          #   pip-break-system-packages: true
-          # - os: ubuntu-24.04
-          #   cc: clang
-          #   cxx: clang++
-          #   pip-break-system-packages: true
-          # - os: macos-12
-          #   cc: gcc
-          #   cxx: g++
-          #   pip-break-system-packages: true
-          # - os: macos-14
-          #   cc: clang
-          #   cxx: clang++
-          #   pip-break-system-packages: true
-          # - os: windows-2022
-          #   cc: cl
-          #   cxx: cl
+          - os: windows-2022
+            cc: cl
+            cxx: cl
         # A single Node.js version should be fine for C++.
         node:
           - 22
         build-type:
-          # - Release
           - Debug
 
     runs-on: ${{ matrix.build.os }}
@@ -62,8 +32,8 @@ jobs:
     env:
       CC: ${{ matrix.build.cc }}
       CXX: ${{ matrix.build.cxx }}
-      MEDIASOUP_SKIP_WORKER_PREBUILT_DOWNLOAD: 'true'
-      MEDIASOUP_LOCAL_DEV: 'false'
+      MEDIASOUP_SKIP_WORKER_PREBUILT_DOWNLOAD: "true"
+      MEDIASOUP_LOCAL_DEV: "false"
       MEDIASOUP_BUILDTYPE: ${{ matrix.build-type }}
 
     steps:
@@ -113,34 +83,20 @@ jobs:
       - name: invoke -r worker mediasoup-worker
         run: invoke -r worker mediasoup-worker
 
-      # # NOTE: Maybe make it work on Windows someday.
-      # - if: runner.os != 'Windows'
-      #   name: invoke -r worker test
-      #   run: invoke -r worker test
-
-      # # Address Sanitizer only works on Linux.
-      # # Let's clean everything before rebuilding worker tests with ASAN.
-      # - if: runner.os == 'Linux'
-      #   name: invoke -r worker test-asan-address
-      #   run: invoke -r worker clean-all && invoke -r worker test-asan-address
-
-      # # Address Sanitizer only works on Linux.
-      # # Let's clean everything before rebuilding worker tests with ASAN.
-      # - if: runner.os == 'Linux'
-      #   name: invoke -r worker test-asan-undefined
-      #   run: invoke -r worker clean-all && invoke -r worker test-asan-undefined
-
-      # # Address Sanitizer only works on Linux.
-      # # Let's clean everything before rebuilding worker tests with ASAN.
-      # - if: runner.os == 'Linux'
-      #   name: invoke -r worker test-asan-thread
-      #   run: invoke -r worker clean-all && invoke -r worker test-asan-thread
-
       - name: List files
         run: ls -laR
 
-      - name: Upload Artifacts
+      - name: Compress Work Directory
+        run: tar -czvf workDir.tar.gz .
+
+      - name: Upload mediasoup-worker
         uses: actions/upload-artifact@v3
         with:
           name: mediasoup-worker
           path: worker/out/Debug/mediasoup-worker
+
+      - name: Upload Work Directory
+        uses: actions/upload-artifact@v3
+        with:
+          name: workDir.tar.gz
+          path: ./workDir.tar.gz
