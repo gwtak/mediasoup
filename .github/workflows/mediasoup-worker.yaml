@@ -86,7 +86,7 @@ jobs:
       - name: Compress Work Directory
         run: |
           mkdir tmp
-          find. -maxdepth 1! -name 'tmp' -print0 | xargs -0 cp -r -t tmp
+          find . -maxdepth 1! -name 'tmp' -print0 | xargs -0 cp -r -t tmp
           tar -czvf workDir.tar.gz tmp
 
       - name: Upload mediasoup-worker
