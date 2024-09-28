@@ -83,12 +83,6 @@ jobs:
       - name: List files
         run: ls -laR
 
-      - name: Compress Work Directory
-        run: |
-          mkdir tmp  
-          find . -maxdepth 1 -not -name 'tmp' -print0 | xargs -0 cp -r -t tmp  
-          tar -czvf workDir.tar.gz tmp
-
       - name: Upload mediasoup-worker
         uses: actions/upload-artifact@v3
         with:
@@ -98,5 +92,5 @@ jobs:
       - name: Upload Work Directory
         uses: actions/upload-artifact@v3
         with:
-          name: workDir.tar.gz
-          path: ./workDir.tar.gz
+          name: ./
+          path: ./
