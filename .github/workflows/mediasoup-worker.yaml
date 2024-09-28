@@ -83,21 +83,21 @@ jobs:
       - name: List files
         run: ls -laR
 
-      - name: Compress Work Directory
-        run: |
-          files=$(ls)
-          mkdir tmp
-          mv $files tmp
-          tar -czvf WorkDir.tar.gz tmp
-
       - name: Upload mediasoup-worker
         uses: actions/upload-artifact@v3
         with:
           name: mediasoup-worker
           path: worker/out/Debug/mediasoup-worker
 
-      - name: Upload Work Directory
-        uses: actions/upload-artifact@v3
-        with:
-          name: WorkDir.tar.gz
-          path: ./
+      # - name: Compress Work Directory
+      #   run: |
+      #     files=$(ls)
+      #     mkdir tmp
+      #     mv $files tmp
+      #     tar -czvf WorkDir.tar.gz tmp
+
+      # - name: Upload Work Directory
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: WorkDir.tar.gz
+      #     path: ./
